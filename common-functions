@@ -69,6 +69,8 @@ function set_cross_compile
 		        fi
 		    done
 		;;
+		RISCV64)
+		    TEMP_CROSS_COMPILE=riscv64-linux-gnu- ;;
 		X64)
 		    TEMP_CROSS_COMPILE=x86_64-linux-gnu- ;;
 		*)
