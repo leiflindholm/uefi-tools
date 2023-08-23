@@ -126,21 +126,17 @@ function do_build
 
 		if [ -n "$COMPONENT_INF" ]; then
 			# Build a standalone component
-			if [ $VERBOSE -eq 1 ]; then
-				echo "build -n $NUM_THREADS -a \"$PLATFORM_ARCH\" -t ${PLATFORM_TOOLCHAIN} -p \"$PLATFORM_DSC\"" \
-					"-m \"$COMPONENT_INF\" -b "$target" ${PLATFORM_BUILDFLAGS}"
-			fi
-			build -n $NUM_THREADS -a "$PLATFORM_ARCH" -t ${PLATFORM_TOOLCHAIN} -p "$PLATFORM_DSC" \
-				-m "$COMPONENT_INF" -b "$target" ${PLATFORM_BUILDFLAGS}
+			COMPONENT_FLAGS="-m $COMPONENT_INF"
 		else
-			# Build a platform
-			if [ $VERBOSE -eq 1 ]; then
-				echo "build -n $NUM_THREADS -a \"$PLATFORM_ARCH\" -t ${PLATFORM_TOOLCHAIN} -p \"$PLATFORM_DSC\"" \
-					"-b "$target" ${PLATFORM_BUILDFLAGS}"
-			fi
-			build -n $NUM_THREADS -a "$PLATFORM_ARCH" -t ${PLATFORM_TOOLCHAIN} -p "$PLATFORM_DSC" \
-				-b "$target" ${PLATFORM_BUILDFLAGS}
+			COMPONENT_FLAGS=
 		fi
+
+		if [ $VERBOSE -eq 1 ]; then
+			echo "build -n $NUM_THREADS -a \"$PLATFORM_ARCH\" -t ${PLATFORM_TOOLCHAIN} -p \"$PLATFORM_DSC\"" \
+				"${COMPONENT_FLAGS} -b \"$target\" ${PLATFORM_BUILDFLAGS}"
+		fi
+		build -n $NUM_THREADS -a "$PLATFORM_ARCH" -t ${PLATFORM_TOOLCHAIN} -p "$PLATFORM_DSC" \
+			${COMPONENT_FLAGS} -b "$target" ${PLATFORM_BUILDFLAGS}
 
 		RESULT=$?
 		if [ $RESULT -eq 0 ]; then
