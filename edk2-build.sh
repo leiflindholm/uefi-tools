@@ -89,11 +89,17 @@ function do_build
 	fi
 
 	case $TOOLCHAIN in
-		"gcc")
+		"gcc-versioned")
 			PLATFORM_TOOLCHAIN=`get_gcc_version "$CROSS_COMPILE"gcc`
 			;;
-		"clang")
+		"clang-versioned")
 			PLATFORM_TOOLCHAIN=`get_clang_version clang`
+			;;
+		"gcc")
+			PLATFORM_TOOLCHAIN=GCC
+			;;
+		"clangdwarf"|"clang")
+			PLATFORM_TOOLCHAIN=CLANGDWARF
 			;;
 		*)
 			# Use command-line specified profile directly
