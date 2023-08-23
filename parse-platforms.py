@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 #
 # Copyright (c) 2015-2019, Linaro Ltd. All rights reserved.
 #
